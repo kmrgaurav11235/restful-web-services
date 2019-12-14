@@ -1,4 +1,4 @@
-package com.gaurav.rest.webservices;
+package com.gaurav.rest.webservices.helloworld;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
