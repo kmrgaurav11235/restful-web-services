@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,5 +49,14 @@ public class UserResource {
 		return ResponseEntity.created(location)
 				.build(); // Create a new builder with a CREATED http status and a location header set to the given URI.
 
+	}
+	
+	@DeleteMapping("/users/{id}")
+	public void deleteOneUser(@PathVariable int id) {
+		User deletedUser = userDaoService.deleteById(id);
+		
+		if (deletedUser == null) {
+			throw new UserNotFoundException("User with Id " + id + " does not exists.");
+		}
 	}
 }
