@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +25,13 @@ public class UserResource {
 	
 	@GetMapping("/users/{id}")
 	public User retrieveOneUser(@PathVariable int id) {
-		return userDaoService.findOne(id);
+		User retrievedUser = userDaoService.findOne(id);
+		
+		if (retrievedUser == null) {
+			throw new UserNotFoundException("User with Id " + id + " does not exists.");
+		}
+		
+		return retrievedUser;
 	}
 	
 	@PostMapping("/users")
